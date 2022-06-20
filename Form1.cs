@@ -187,7 +187,7 @@ namespace ChangeWindow
 
 
 
-        //読み込み終了！下からメインの処理
+        //ここからメインの処理
 
 
         //選択中のプロセス
@@ -227,16 +227,6 @@ namespace ChangeWindow
             selectedProcess = (Process)comboBox1.SelectedItem;
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            SetForegroundWindow(selectedProcess.MainWindowHandle);
-        }
-
-        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
-        {
-
-        }
-
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             this.Visible = true;        //フォームの表示
@@ -247,38 +237,11 @@ namespace ChangeWindow
             this.Activate();
         }
 
-        private void contextMenuStrip1_Opening_1(object sender, CancelEventArgs e)
-        {
-
-        }
-        private void 開くToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.Visible = true;        //フォームの表示
-            if (this.WindowState == FormWindowState.Minimized)
-            {
-                this.WindowState = FormWindowState.Normal;
-            }
-            this.Activate();
-        }
-
-        private void 閉じるToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            notifyIcon1.Visible = false;    //アイコンをトレイから取り除く
-            //notifyIcon1.Dispose();
-            Application.Exit();             //アプリケーションの終了
-        }
-
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Console.WriteLine("cant close");
-            if (e.CloseReason == CloseReason.UserClosing)
-                e.Cancel = true;
+            Application.Exit();
         }
 
-        private void 閉じるToolStripMenuItem1_Click_1(object sender, EventArgs e)
-        {
-
-        }
 
         private void button3_Click(object sender, EventArgs e)
         {
