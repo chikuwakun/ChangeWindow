@@ -158,48 +158,50 @@ namespace ChangeWindow
             keyboardHook.Hook();
         }
 
+        //shift
+        public int key1 = 32;
+        //space
+        public int key2 = 160;
+        //Esc
+        public int keyEsc = 27;
 
-        public bool flagOn = false;
-        public bool flagOff = false;
+
+        public bool flagOn;
         IntPtr hWnd2;
         private void KeyboardHook_KeyDownEvent(object sender, KeyEventArg e)
         {
+
             plessedKeys.Add(e.KeyCode);
 
-            if (plessedKeys.Contains(32) && plessedKeys.Contains(160))
+            if (plessedKeys.Contains(key1) && plessedKeys.Contains(key2))
             {
-                //同時推ししたときにやりたい処理
+                //同時おししたときにやりたい処理
 
                 hWnd2 = GetForegroundWindow();
                 int id;
                 GetWindowThreadProcessId(hWnd2, out id);
                 
 
-                Console.WriteLine("hahaha");
                 SetForegroundWindow(selectedProcess.MainWindowHandle);
-                plessedKeys.Remove(32);
-                plessedKeys.Remove(160);
+                plessedKeys.Remove(key1);
+                plessedKeys.Remove(key2);
 
                 flagOn = true;
-            }else if(flagOn == true)
+            }
+
+            if(flagOn&&e.KeyCode == keyEsc)
             {
                 flagOn = false;
-                flagOff = true;
+                SetForegroundWindow(hWnd2);
             }
         }
-
+         
         private void KeyboardHook_KeyUpEvent(object sender, KeyEventArg e)
         {
             // キーが離されたときにやりたいこと
             if (plessedKeys.Contains(e.KeyCode))
             {
                 plessedKeys.Remove(e.KeyCode);
-            }
-
-            if(flagOff== true)
-            {
-                flagOff = false;
-                SetForegroundWindow(hWnd2);
             }
         }
 
