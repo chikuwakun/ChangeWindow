@@ -167,7 +167,7 @@ namespace ChangeWindow
 
 
         public bool flagOn;
-        IntPtr hWnd2;
+        IntPtr latestWindow;
         private void KeyboardHook_KeyDownEvent(object sender, KeyEventArg e)
         {
 
@@ -175,13 +175,9 @@ namespace ChangeWindow
 
             if (plessedKeys.Contains(key1) && plessedKeys.Contains(key2))
             {
-                //同時おししたときにやりたい処理
+                //同時おししたときにやりたい
 
-                hWnd2 = GetForegroundWindow();
-                int id;
-                GetWindowThreadProcessId(hWnd2, out id);
-                
-
+                latestWindow = GetForegroundWindow();
                 SetForegroundWindow(selectedProcess.MainWindowHandle);
                 plessedKeys.Remove(key1);
                 plessedKeys.Remove(key2);
@@ -192,7 +188,7 @@ namespace ChangeWindow
             if(flagOn&&e.KeyCode == keyEsc)
             {
                 flagOn = false;
-                SetForegroundWindow(hWnd2);
+                SetForegroundWindow(latestWindow);
             }
         }
          
