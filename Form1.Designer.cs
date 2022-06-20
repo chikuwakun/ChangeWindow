@@ -45,6 +45,7 @@
             this.button1.TabIndex = 0;
             this.button1.Text = "更新";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // comboBox1
             // 
@@ -77,7 +78,7 @@
             this.閉じる.Name = "閉じる";
             this.閉じる.Size = new System.Drawing.Size(75, 23);
             this.閉じる.TabIndex = 4;
-            this.閉じる.Text = "最小化";
+            this.閉じる.Text = "非表示";
             this.閉じる.UseVisualStyleBackColor = true;
             this.閉じる.Click += new System.EventHandler(this.button3_Click);
             // 
