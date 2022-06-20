@@ -68,6 +68,29 @@ namespace ChangeWindow
             //結果を返す
             return (Process[])foundProcesses.ToArray(typeof(Process));
         }
+
+        public static List<Process> GetProcessesOnlyWindow()
+        {
+          
+            List<Process> foundProcesses = new List<Process>();
+
+            //ウィンドウのタイトルに「」を含むプロセスをすべて取得する
+            Process[] ps = GetProcessesByWindow("", null);
+
+            //windowの名前があるプロセスだけをリストに入れる
+            foreach (Process p in ps)
+            {
+                if (p.MainWindowTitle.Length > 1)
+                {
+
+                    foundProcesses.Add(p);
+                }
+            }
+
+            return foundProcesses;
+
+        }
+
         private static bool EnumWindowCallBack(IntPtr hWnd, IntPtr lparam)
         {
             if (searchWindowText != null)
@@ -117,6 +140,7 @@ namespace ChangeWindow
             //次のウィンドウを検索
             return true;
         }
+
 
 
 
@@ -187,7 +211,8 @@ namespace ChangeWindow
 
 
 
-        //読み込み終了！下からメインの処理
+
+        //ここからメインの処理
 
 
         //選択中のプロセス
@@ -198,22 +223,10 @@ namespace ChangeWindow
         {
             InitializeComponent();
 
-            //コンボボックス設定
-            List<Process> comboBoxMyItems = new List<Process>();
+            //コンボボックス初期設定
+            List<Process> comboBoxMyItems = GetProcessesOnlyWindow();
 
-            //ウィンドウのタイトルに「」を含むプロセスをすべて取得する
-            Process[] ps = GetProcessesByWindow("", null);
-
-            //windowの名前があるやつだけ入れる
-            foreach (Process p in ps)
-            {
-                if (p.MainWindowTitle.Length > 1)
-                {
-                   
-                    comboBoxMyItems.Add(p);
-                }
-            }
-
+            //comboBoxの表示を指定
             comboBox1.DisplayMember = "MainWindowTitle";
             comboBox1.ValueMember = "Id";
             comboBox1.DataSource = comboBoxMyItems;
@@ -227,16 +240,9 @@ namespace ChangeWindow
             selectedProcess = (Process)comboBox1.SelectedItem;
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            SetForegroundWindow(selectedProcess.MainWindowHandle);
-        }
-
-        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
-        {
-
-        }
-
+        
+        
+        //タスクバーのアイコンダブルクリックでフォームが表示されるようにする
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             this.Visible = true;        //フォームの表示
@@ -247,42 +253,17 @@ namespace ChangeWindow
             this.Activate();
         }
 
-        private void contextMenuStrip1_Opening_1(object sender, CancelEventArgs e)
-        {
 
-        }
-        private void 開くToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.Visible = true;        //フォームの表示
-            if (this.WindowState == FormWindowState.Minimized)
-            {
-                this.WindowState = FormWindowState.Normal;
-            }
-            this.Activate();
-        }
-
-        private void 閉じるToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            notifyIcon1.Visible = false;    //アイコンをトレイから取り除く
-            //notifyIcon1.Dispose();
-            Application.Exit();             //アプリケーションの終了
-        }
-
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            Console.WriteLine("cant close");
-            if (e.CloseReason == CloseReason.UserClosing)
-                e.Cancel = true;
-        }
-
-        private void 閉じるToolStripMenuItem1_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
+        //非表示ボタンを押すと非表示
         private void button3_Click(object sender, EventArgs e)
         {
             this.Visible = false;
+        }
+        
+        //更新ボタンを押すとプロセスを再取得する
+        private void button1_Click(object sender, EventArgs e)
+        {
+            comboBox1.DataSource = GetProcessesOnlyWindow();
         }
     }
 

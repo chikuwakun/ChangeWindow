@@ -33,13 +33,8 @@
             this.button1 = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.開くToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.閉じるToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.閉じる = new System.Windows.Forms.Button();
-            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -50,6 +45,7 @@
             this.button1.TabIndex = 0;
             this.button1.Text = "更新";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // comboBox1
             // 
@@ -69,37 +65,6 @@
             this.label1.TabIndex = 2;
             this.label1.Text = "未選択です";
             // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(472, 24);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "表示";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.開くToolStripMenuItem,
-            this.閉じるToolStripMenuItem});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(105, 48);
-            this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening_1);
-            // 
-            // 開くToolStripMenuItem
-            // 
-            this.開くToolStripMenuItem.Name = "開くToolStripMenuItem";
-            this.開くToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
-            this.開くToolStripMenuItem.Text = "開く";
-            // 
-            // 閉じるToolStripMenuItem
-            // 
-            this.閉じるToolStripMenuItem.Name = "閉じるToolStripMenuItem";
-            this.閉じるToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
-            this.閉じるToolStripMenuItem.Text = "閉じる";
-            // 
             // notifyIcon1
             // 
             this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
@@ -109,11 +74,11 @@
             // 
             // 閉じる
             // 
-            this.閉じる.Location = new System.Drawing.Point(561, 4);
+            this.閉じる.Location = new System.Drawing.Point(561, 24);
             this.閉じる.Name = "閉じる";
             this.閉じる.Size = new System.Drawing.Size(75, 23);
             this.閉じる.TabIndex = 4;
-            this.閉じる.Text = "最小化";
+            this.閉じる.Text = "非表示";
             this.閉じる.UseVisualStyleBackColor = true;
             this.閉じる.Click += new System.EventHandler(this.button3_Click);
             // 
@@ -123,14 +88,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(648, 63);
             this.Controls.Add(this.閉じる);
-            this.Controls.Add(this.button2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.button1);
             this.Name = "Form1";
             this.ShowInTaskbar = false;
             this.Text = "Form1";
-            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -141,11 +104,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
-        private System.Windows.Forms.ToolStripMenuItem 開くToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 閉じるToolStripMenuItem;
         private System.Windows.Forms.Button 閉じる;
     }
 }
